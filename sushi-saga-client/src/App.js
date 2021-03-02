@@ -47,7 +47,7 @@ class App extends Component {
       this.setState({
         progress: this.state.progress + 4
       })
-      // console.log(this.state.sushis.slice(this.state.progress, this.state.progress + 4))
+      console.log(this.state.sushis.slice(this.state.progress, this.state.progress + 4))
     } else {
       this.setState({
         progress: 0
