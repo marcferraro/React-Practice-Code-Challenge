@@ -10,6 +10,7 @@ class App extends Component {
     super()
     this.state = {
       sushis: [],
+      progress: 0,
       money: 100
     }
   }
@@ -21,14 +22,38 @@ class App extends Component {
     return eatenSushiCount
   }
 
+  eatSushi = (eatenSushi) => {
+    if (this.state.money >= eatenSushi.price){
+      const newMoney = this.state.money - eatenSushi.price
+      const newArray = this.state.sushis.map(sushi => {
+        if (sushi.id === eatenSushi.id){
+          eatenSushi.eaten = true
+          return eatenSushi
+        } else {
+          return sushi
+        }
+      })
+      // console.log(newArray)
+      this.setState({
+        money: newMoney,
+        sushis: newArray
+      })
+      
+    }
+  }
+
+  moreSushi = () => {
+    console.log('more sushi')
+  }
+
 
   render() {
 
     const count = this.countEatenSushi()
-    console.log(count)
+    // console.log(count)
     return (
       <div className="app">
-        <SushiContainer sushis={this.state.sushis} />
+        <SushiContainer sushis={this.state.sushis} progress={this.state.progress} eatSushi={this.eatSushi} moreSushi={this.moreSushi}/>
         <Table sushis={this.state.sushis} money={this.state.money}/>
       </div>
     );
@@ -38,7 +63,7 @@ class App extends Component {
     fetch('http://localhost:3000/sushis')
     .then(resp => resp.json())
     .then(sushis => {
-      console.log(sushis)
+      // console.log(sushis)
       const massagedArray = sushis.map(sushi => {
         sushi.eaten = false
         return sushi
