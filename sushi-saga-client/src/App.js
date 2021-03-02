@@ -43,7 +43,10 @@ class App extends Component {
   }
 
   moreSushi = () => {
-    console.log('more sushi')
+    this.setState({
+      progress: this.state.progress + 4
+    })
+    console.log(this.state.sushis.slice(this.state.progress, this.state.progress + 4))
   }
 
 

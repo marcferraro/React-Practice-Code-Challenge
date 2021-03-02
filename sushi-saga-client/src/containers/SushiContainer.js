@@ -4,7 +4,7 @@ import Sushi from '../components/Sushi'
 
 const SushiContainer = (props) => {
 
-  const displayedSushi = props.sushis.slice(props.progress, 4)
+  const displayedSushi = props.sushis.slice(props.progress, props.progress + 4)
   // console.log(displayedSushi)
 
   return (
