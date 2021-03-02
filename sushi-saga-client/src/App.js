@@ -9,15 +9,27 @@ class App extends Component {
   constructor(){
     super()
     this.state = {
-      sushis: []
+      sushis: [],
+      money: 100
     }
   }
 
+  countEatenSushi = () => {
+    let eatenSushiCount = []
+    this.state.sushis.forEach(sushi => {sushi.eaten ? eatenSushiCount.push(1) : null})
+
+    return eatenSushiCount
+  }
+
+
   render() {
+
+    const count = this.countEatenSushi()
+    console.log(count)
     return (
       <div className="app">
-        <SushiContainer />
-        <Table />
+        <SushiContainer sushis={this.state.sushis} />
+        <Table sushis={this.state.sushis} money={this.state.money}/>
       </div>
     );
   }
@@ -26,6 +38,7 @@ class App extends Component {
     fetch('http://localhost:3000/sushis')
     .then(resp => resp.json())
     .then(sushis => {
+      console.log(sushis)
       const massagedArray = sushis.map(sushi => {
         sushi.eaten = false
         return sushi
